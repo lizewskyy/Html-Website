@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Countdown Timer</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background-color: #282c34;
+            color: #61dafb;
+            margin: 0;
+        }
+        .container {
+            text-align: center;
+            background: #20232a;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+        }
+        input[type="number"] {
+            width: 60px;
+            padding: 10px;
+            margin: 5px;
+            border: none;
+            border-radius: 5px;
+            font-size: 1em;
+        }
+        button {
+            padding: 10px 20px;
+            margin: 10px;
+            border: none;
+            border-radius: 5px;
+            background-color: #61dafb;
+            color: #20232a;
+            font-size: 1em;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: #21a1f1;
+        }
+        #timer {
+            font-size: 3em;
+            margin-top: 20px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container"></div>
+        <input type="number" id="minutes" placeholder="Minutes">
+        <input type="number" id="seconds" placeholder="Seconds">
+        <button onclick="startTimer()">Start Timer</button>
+        <div id="timer">00:00</div>
+    </div>
+    <button onclick="window.location.href='index.html'">HTML Only Portfolio</button>
+    <script>
+        let countdown;
+
+        function startTimer() {
+            const minutes = parseInt(document.getElementById('minutes').value);
+            const seconds = parseInt(document.getElementById('seconds').value);
+            const totalTime = (minutes * 60) + seconds;
+            const endTime = Date.now() + totalTime * 1000;
+
+            clearInterval(countdown);
+
+            countdown = setInterval(() => {
+                const now = Date.now();
+                const remainingTime = Math.max(0, endTime - now);
+                const remainingMinutes = Math.floor(remainingTime / 1000 / 60);
+                const remainingSeconds = Math.floor((remainingTime / 1000) % 60);
+
+                document.getElementById('timer').textContent = `${String(remainingMinutes).padStart(2, '0')}:${String(remainingSeconds).padStart(2, '0')}`;
+
+                if (remainingTime <= 0) {
+                    clearInterval(countdown);
+                }
+            }, 1000);
+        }
+    </script>
+</body>
+</html>

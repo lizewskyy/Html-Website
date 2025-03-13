@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html lang="pt-BR"></html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Quiz App</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+        .quiz-container {
+            background: #fff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            width: 400px;
+        }
+        .quiz-header {
+            margin-bottom: 20px;
+        }
+        .quiz-header h2 {
+            margin: 0;
+        }
+        .quiz-question {
+            margin-bottom: 20px;
+        }
+        .quiz-options {
+            list-style: none;
+            padding: 0;
+        }
+        .quiz-options li {
+            margin-bottom: 10px;
+        }
+        .quiz-options input {
+            margin-right: 10px;
+        }
+        .quiz-footer {
+            text-align: right;
+        }
+        .quiz-footer button {
+            padding: 10px 20px;
+            background: #007bff;
+            color: #fff;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+        .quiz-footer button:hover {
+            background: #0056b3;
+        }
+    </style>
+</head>
+<body>
+    <div class="quiz-container">
+        <div class="quiz-header">
+            <h2>Quiz App</h2>
+        </div>
+        <div class="quiz-question">
+            <p id="question">Texto da pergunta</p>
+        </div>
+        <ul class="quiz-options">
+            <li>
+                <input type="radio" name="option" id="option1" value="1">
+                <label for="option1" id="option1_text">Opção 1</label>
+            </li>
+            <li>
+                <input type="radio" name="option" id="option2" value="2">
+                <label for="option2" id="option2_text">Opção 2</label>
+            </li>
+            <li>
+                <input type="radio" name="option" id="option3" value="3">
+                <label for="option3" id="option3_text">Opção 3</label>
+            </li>
+            <li>
+                <input type="radio" name="option" id="option4" value="4">
+                <label for="option4" id="option4_text">Opção 4</label>
+            </li>
+        </ul>
+        <div class="quiz-footer">
+            <button id="submit">Enviar</button>
+
+            <button onclick="window.location.href='index.html'">HTML Only Portfolio</button>
+        </div>
+    </div>
+
+    <script>
+        const quizData = [
+            {
+                question: "Qual é a capital da França?",
+                options: ["Berlim", "Madri", "Paris", "Lisboa"],
+                correct: 3
+            },
+            {
+                question: "Quem é o CEO da Tesla?",
+                options: ["Jeff Bezos", "Elon Musk", "Bill Gates", "Tony Stark"],
+                correct: 2
+            },
+            {
+                question: "Qual é a linguagem de programação mais usada em 2021?",
+                options: ["Java", "C", "Python", "JavaScript"],
+                correct: 4
+            },
+            {
+                question: "Quem foi o 16º Presidente dos Estados Unidos?",
+                options: ["George Washington", "Abraham Lincoln", "Thomas Jefferson", "Theodore Roosevelt"],
+                correct: 2
+            },
+            {
+                question: "O que significa HTML?",
+                options: ["Hyper Text Markup Language", "Hot Mail", "How to Make Lasagna", "Nenhuma das anteriores"],
+                correct: 1
+            }
+        ];
+
+        let currentQuiz = 0;
+        let score = 0;
+
+        const questionEl = document.getElementById('question');
+        const optionsEls = document.querySelectorAll('.quiz-options input');
+        const optionsTextEls = document.querySelectorAll('.quiz-options label');
+        const submitBtn = document.getElementById('submit');
+
+        loadQuiz();
+
+        function loadQuiz() {
+            deselectOptions();
+            const currentQuizData = quizData[currentQuiz];
+            questionEl.innerText = currentQuizData.question;
+            optionsTextEls.forEach((optionTextEl, index) => {
+                optionTextEl.innerText = currentQuizData.options[index];
+            });
+        }
+
+        function deselectOptions() {
+            optionsEls.forEach(optionEl => optionEl.checked = false);
+        }
+
+        function getSelected() {
+            let answer;
+            optionsEls.forEach(optionEl => {
+                if (optionEl.checked) {
+                    answer = optionEl.value;
+                }
+            });
+            return answer;
+        }
+
+        submitBtn.addEventListener('click', () => {
+            const answer = getSelected();
+            if (answer) {
+                if (answer == quizData[currentQuiz].correct) {
+                    score++;
+                }
+                currentQuiz++;
+                if (currentQuiz < quizData.length) {
+                    loadQuiz();
+                } else {
+                    document.querySelector('.quiz-container').innerHTML = `
+                        <h2>Você respondeu ${score}/${quizData.length} perguntas corretamente</h2>
+                        <button onclick="location.reload()">Recarregar</button>
+                    `;
+                }
+            }
+        });
+    </script>
+</body>
+</html>
