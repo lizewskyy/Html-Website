@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>About Me</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        .header {
+            text-align: center;
+            padding: 50px 0;
+            background-color: #f4f4f4;
+        }
+        .header h1 {
+            margin: 0;
+            font-size: 2.5em;
+        }
+        .content {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-between;
+        }
+        .content .text, .content .image {
+            flex: 1 1 45%;
+            margin: 10px;
+        }
+        .content .text {
+            font-size: 1.2em;
+        }
+        .content .image img {
+            max-width: 100%;
+            height: auto;
+            border-radius: 10px;
+        }
+        @media (max-width: 768px) {
+            .content {
+                flex-direction: column;
+                align-items: center;
+            }
+            .content .text, .content .image {
+                flex: 1 1 100%;
+            }
+        }
+        button {
+            padding: 10px;
+            font-size: 16px;
+            background-color: #007BFF;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>About Me</h1>
+        </div>
+        <div class="content">
+            <div class="text">
+                <p>Hello! I'm Lizewsky, a passionate web developer with a knack for creating dynamic and responsive websites. My portfolio showcases a variety of projects that demonstrate my skills in HTML, CSS, JavaScript, and more. I love to learn and stay updated with the latest trends in web development. Feel free to explore my work and get in touch if you'd like to collaborate!</p>
+            </div>
+            <div class="image">
+                <img src="logo.png" alt="Your Image">
+            </div>
+            <div class="button"><button onclick="window.location.href='index.html'">HTML Only Portfolio</button></div>
+        </div>
+    </div>
+</body>
+</html>
